@@ -1,29 +1,34 @@
 <template>
-    <div class="daily-weather">
-      <div class="daily-weather__title">
-        <div class="daily-weather__leftArea">
-          <div class="daily-weather__currentTemp">
+    <div>
+      <div class="daily-weather" v-if="location">
+        <div class="daily-weather__title">
+          <div class="daily-weather__leftArea">
+            <div class="daily-weather__currentTemp">
 
-          </div>
-        </div>
-        <div class="daily-weather__rightArea">
-          <!-- {{city}} -->
-        </div>
-      </div>
-      <div class="daily-weather__cardsContaniner">
-        <div class="daily-weather__cards" v-for="(list, i) in weatherlist" :key="i">
-          <div class="daily-weather__day">{{list.day}}</div>
-          <div class="daily-weather__illustration">
-            <img :src="weatherIllustration + list.weather[0].icon + '@2x.png'" alt="weather" />
-          </div>
-          <div>
-            <span class="daily-weather__maxTemp">{{Math.round(list.temp.max)}} &#8451;
-            </span>
-            <span class="daily-weather__minTemp"> {{Math.round(list.temp.min)}} &#8451;
-            </span>
             </div>
+          </div>
+          <div class="daily-weather__rightArea">
+            <!-- {{city}} -->
+          </div>
+        </div>
+        <div class="daily-weather__cardsContaniner">
+          <div class="daily-weather__cards" v-for="(list, i) in weatherlist" :key="i">
+            <div class="daily-weather__day">{{list.day}}</div>
+            <div class="daily-weather__illustration">
+              <img :src="weatherIllustration + list.weather[0].icon + '@2x.png'" alt="weather" />
+            </div>
+            <div>
+              <span class="daily-weather__maxTemp">{{Math.round(list.temp.max)}} &#8451;
+              </span>
+              <span class="daily-weather__minTemp"> {{Math.round(list.temp.min)}} &#8451;
+              </span>
+              </div>
+          </div>
         </div>
       </div>
+      <div class="error" v-if="!location">
+        Please turn on your location
+     </div>
     </div>
 </template>
 <style lang="scss">
@@ -78,6 +83,7 @@ export default {
     long: '',
     weatherlist: '',
     weatherIllustration: 'https://openweathermap.org/img/wn/',
+    location: true,
   }),
   methods: {
     async getLocation() {
@@ -87,6 +93,8 @@ export default {
           this.long = position.coords.longitude;
           this.getData();
         });
+      } else {
+        this.location = false;
       }
     },
 
