@@ -99,7 +99,7 @@ export default {
     },
 
     async getData() {
-      const url = `http://api.openweathermap.org/data/2.5/onecall?lat=${this.lat}&lon=${this.long}&exclude=current,minutely,hourly,alerts&units=metric&cnt=5&appid=b8fcf9cf2f1a3e3be1eb2980c5c17c52`;
+      const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.lat}&lon=${this.long}&exclude=current,minutely,hourly,alerts&units=metric&cnt=5&appid=b8fcf9cf2f1a3e3be1eb2980c5c17c52`;
       const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       try {
         const response = await this.$http.get(
